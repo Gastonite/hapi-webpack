@@ -1,12 +1,9 @@
-/* eslint-disable global-require, import/no-dynamic-require, import/prefer-default-export */
 
-import Joi from 'joi';
-import Path from 'path';
-
-import Webpack from 'webpack';
-import WebpackDevMiddleware from 'webpack-dev-middleware';
-import WebpackHotMiddleware from 'webpack-hot-middleware';
-
+const Webpack = require.main.require('webpack');
+const Joi = require('joi');
+const Path = require('path');
+const WebpackDevMiddleware = require.main.require('webpack-dev-middleware');
+const WebpackHotMiddleware = require.main.require('webpack-hot-middleware');
 
 /**
  * Creates the configuration object.
@@ -25,7 +22,7 @@ function makeConfig(options) {
   };
 
   return Joi.attempt(options, schema);
-}
+};
 
 /**
  * Creates the Webpack compiler.
@@ -33,7 +30,7 @@ function makeConfig(options) {
  * @param {string|Object|Webpack} options
  * @return {Webpack}
  */
-function makeCompiler(options) {
+const makeCompiler = options => {
   if (options instanceof Webpack) {
     return options;
   }
@@ -46,12 +43,12 @@ function makeCompiler(options) {
   }
 
   return new Webpack(options);
-}
+};
 
 /**
  * Registers the plugin.
  */
-export function register(server, options, next) {
+exports.register = (server, options, next) => {
   const config = makeConfig(options);
   const compiler = makeCompiler(config.compiler);
   const webpackDevMiddleware = WebpackDevMiddleware(compiler, config.assets);
@@ -60,6 +57,7 @@ export function register(server, options, next) {
     const { req, res } = request.raw;
 
     webpackDevMiddleware(req, res, (error) => {
+
       if (error) {
         return reply(error);
       }
@@ -69,6 +67,7 @@ export function register(server, options, next) {
   });
 
   if (typeof config.hot === 'object' || config.hot === true) {
+
     const webpackHotMiddleware = WebpackHotMiddleware(compiler, config.hot || {});
 
     server.ext('onRequest', (request, reply) => {
@@ -86,9 +85,9 @@ export function register(server, options, next) {
 
   server.expose({ compiler });
   return next();
-}
+};
 
-register.attributes = {
+exports.register.attributes = {
   name: 'webpack',
   pkg: require('../package.json'),
 };
