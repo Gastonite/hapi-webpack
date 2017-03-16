@@ -8,7 +8,7 @@ This plugin is a modern adaptation of the work of [Simon Degraeve](https://githu
 Install this package via NPM:
 
 ```bash
-$ npm install seldszar/hapi-webpack-plugin
+$ npm install seldszar/hapi-webpack
 ```
 
 Now you can use the plugin by registering on Hapi:
