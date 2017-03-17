@@ -21,7 +21,7 @@ internals.makeCompiler = options => {
   console.log(options.constructor.name);
   console.log(Webpack.name);
 
-  if (options instanceof Webpack) {
+  if (options instanceof Webpack.Compiler) {
     return options;
   }
 
