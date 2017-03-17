@@ -1,9 +1,9 @@
 
-const Webpack = require.main.require('webpack');
+const Webpack = require('webpack');
 const Joi = require('joi');
 const Path = require('path');
-const WebpackDevMiddleware = require.main.require('webpack-dev-middleware');
-const WebpackHotMiddleware = require.main.require('webpack-hot-middleware');
+const WebpackDevMiddleware = require('webpack-dev-middleware');
+const WebpackHotMiddleware = require('webpack-hot-middleware');
 
 const internals = {};
 
@@ -16,6 +16,10 @@ internals.hotMiddlewareEntry = 'webpack-hot-middleware/client?path=/__webpack_hm
  * @return {Webpack}
  */
 internals.makeCompiler = options => {
+
+
+  console.log(options.constructor.name);
+  console.log(Webpack.name);
 
   if (options instanceof Webpack) {
     return options;
@@ -35,7 +39,6 @@ internals.makeCompiler = options => {
       webpackConfig.entry = [webpackConfig.entry];
     }
 
-
     if (webpackConfig.entry instanceof Array) {
 
       webpackConfig.entry.push(internals.hotMiddlewareEntry);
@@ -47,7 +50,7 @@ internals.makeCompiler = options => {
       webpackConfig.entry.hotMiddleware = internals.hotMiddlewareEntry;
     }
 
-    return new Webpack(webpackConfig);
+    options = webpackConfig;
   }
 
   return new Webpack(options);
