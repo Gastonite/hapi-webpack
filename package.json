@@ -2,26 +2,16 @@
   "name": "hapi-webpack",
   "version": "0.1.0",
   "description": "Another Webpack middleware for Hapi",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "author": "Alexandre Breteau <contact@seldszar.fr>",
   "license": "MIT",
-  "scripts": {
-    "compile": "babel src --out-dir dist"
-  },
   "dependencies": {
     "joi": "^10.2.2"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-eslint": "^7.1.1",
-    "babel-preset-env": "^1.1.4",
-    "eslint": "^3.12.2",
-    "eslint-config-airbnb-base": "^11.0.0",
-    "eslint-plugin-import": "^2.2.0"
   },
   "peerDependencies": {
     "webpack": "^1.0.0 || ^2.2.1",
     "webpack-dev-middleware": "^1.0.0",
     "webpack-hot-middleware": "^2.0.0"
-  }
+  },
+  "engines" : { "node" : ">=6.0.0" }
 }
